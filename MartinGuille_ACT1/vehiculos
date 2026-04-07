@@ -1,5 +1,0 @@
-# tipus; matricula; km; marca; model; color; numPuertas / cilindrada; esAutomatic / tipus
-cotxe; 1234-ABC; 45230; Toyota; Corolla; Blanco; 5; true
-cotxe; 5678DEF; 98210; Volkswagen; Golf; Gris; 3; false
-moto; 5555XYZ; 18400; Yamaha; XMAX 300; Gris; 292; Scooter
-moto; 1111MNO; 12000; Honda; CB500F; Negro; 500; Naked
