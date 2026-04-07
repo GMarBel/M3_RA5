@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="21.0.8" class="java.beans.XMLDecoder">
+ <object class="java.util.TreeSet">
+  <void method="add">
+   <object class="ficheros.Moto">
+    <void property="cc">
+     <int>500</int>
+    </void>
+    <void property="color">
+     <string>Negro</string>
+    </void>
+    <void property="km">
+     <int>12000</int>
+    </void>
+    <void property="marca">
+     <string>Honda</string>
+    </void>
+    <void property="matricula">
+     <string>1111MNO</string>
+    </void>
+    <void property="modelo">
+     <string>CB500F</string>
+    </void>
+    <void property="tipo">
+     <string>Naked</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="ficheros.Coche">
+    <void property="color">
+     <string>Blanco</string>
+    </void>
+    <void property="esAuto">
+     <boolean>true</boolean>
+    </void>
+    <void property="km">
+     <int>45230</int>
+    </void>
+    <void property="marca">
+     <string>Toyota</string>
+    </void>
+    <void property="matricula">
+     <string>1234-ABC</string>
+    </void>
+    <void property="modelo">
+     <string>Corolla</string>
+    </void>
+    <void property="numPuertas">
+     <int>5</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="ficheros.Moto">
+    <void property="cc">
+     <int>292</int>
+    </void>
+    <void property="color">
+     <string>Gris</string>
+    </void>
+    <void property="km">
+     <int>18400</int>
+    </void>
+    <void property="marca">
+     <string>Yamaha</string>
+    </void>
+    <void property="matricula">
+     <string>5555XYZ</string>
+    </void>
+    <void property="modelo">
+     <string>XMAX 300</string>
+    </void>
+    <void property="tipo">
+     <string>Scooter</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="ficheros.Coche">
+    <void property="color">
+     <string>Gris</string>
+    </void>
+    <void property="km">
+     <int>98210</int>
+    </void>
+    <void property="marca">
+     <string>Volkswagen</string>
+    </void>
+    <void property="matricula">
+     <string>5678DEF</string>
+    </void>
+    <void property="modelo">
+     <string>Golf</string>
+    </void>
+    <void property="numPuertas">
+     <int>3</int>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
