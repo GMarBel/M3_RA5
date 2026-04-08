@@ -3,7 +3,7 @@ package act3;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Cita {
+public class Cita implements Comparable<Cita>{
 	private Pacient pacient;
 	private Doctor doctor;
 	private LocalDate data;
@@ -105,6 +105,14 @@ public class Cita {
 		if(edad>edadMin && edad<edadMax)return true;
 		return false;
 	}
+
+	@Override
+	public int compareTo(Cita c) {
+		int fecha = this.data.compareTo(c.data);
+		if(fecha != 0) return fecha;
+		return this.hora.compareTo(c.hora);
+	}
+	
 	
 	
 	

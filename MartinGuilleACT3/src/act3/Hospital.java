@@ -1,48 +1,10 @@
 package act3;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-
-//ArrayList → Llista basada en array, ordenada, permet duplicats i té accés ràpid per índex.
-//LinkedList → Llista de nodes enllaçats, ordenada, permet duplicats, inserció/eliminació ràpida però accés lent.
-//HashMap → Clau-valor, basat en hash, claus úniques, sense ordre, accés.
-//TreeMap → Clau-valor, arbre ordenat, claus úniques, accés.
-//HashSet → Conjunt basat en hash, sense duplicats, sense ordre.
-//TreeSet → Conjunt amb arbre ordenat, sense duplicats.
-
-//Listas
-//List<String> arrayList = new ArrayList<>();
-//List<String> linkedList = new LinkedList<>();
-
-//Mapas (clave-valor)
-//Map<String, Integer> hashMap = new HashMap<>();
-//Map<String, Integer> treeMap = new TreeMap<>();
-
-//Conjuntos
-//Set<String> hashSet = new HashSet<>();
-//Set<String> treeSet = new TreeSet<>();
-
-/*
-public boolean equals(Object a) {
-     return this.nom.equals(((Gos) a).getNom());
- }
-
- // hashCode calcula la clau hash que permet recuperar un element
- // Si dos elements tenen la mateixa clau van al mateix lloc
-  
-public int hashCode () {
-     return this.nom.hashCode();
- }
-}
-
-COMPARE TO:
-< 0    El objeto actual es menor que el objeto comparado 
-0      Los dos objetos son iguales                       
-> 0    El objeto actual es mayor que el objeto comparado 
-
-
-*/
 
 public class Hospital {
 	private String nom,adreça;
@@ -109,7 +71,170 @@ public class Hospital {
 		this.listaCites = listaCites;
 	}
 	
+	//pacientes
+	/**
+	 * Registrar pacientes
+	 * @param p
+	 * @return
+	 */
+	public boolean registrarPacient(Pacient p) {
+		if(p == null)return false;
+		return listaPacients.add(p);
+	}
 	
+	/**
+	 * Buscar pacientes mediante su dni
+	 * @param dni
+	 * @return
+	 */
+	public Pacient buscarPacient(String dni) {
+		if(dni.isEmpty())return null;
+		for(Pacient p: listaPacients) {
+			if(p.getDni().matches(dni))return p;
+		}
+		return null;
+	}
 	
+	/**
+	 * Eliminar pacientes mediante su dni
+	 * @param dni
+	 * @return
+	 */
+	public boolean eliminarPacient(String dni) {
+		Pacient p = buscarPacient(dni);
+		if(p ==null)return false;
+		return listaPacients.remove(p);
+	}
+	
+	/**
+	 * Mostrar los datos de todos los pacientes de la lista
+	 */
+	public void mostrarDadesPacients() {
+		for(Pacient p : listaPacients) {
+			System.out.println( 
+						p.getNom() +
+						"\nDNI: " + p.getDni() +
+						"\nData naixement: " + p.getDataNaixement()+
+						"\nTelefon: " + p.getTlf()+
+						"\nCodi pacient: " + p.getCodi()+
+						"\nHistorial medic: " + p.getHistorial()
+					);
+		}
+	}
+	
+	/**
+	 * Mostrar numero de pacientes en el hospital
+	 */
+	public void mostrarNumPacients() {
+		System.out.println("Num pacients: " + listaPacients.size());
+	}
+	
+	//doctores
+	/**
+	 * Registrar doctores en la lista doctores
+	 * @param d
+	 * @return
+	 */
+	public boolean registrarDoctor(Doctor d) {
+		if(d == null)return false;
+		return listaDoctors.add(d);
+	}
+	
+	/**
+	 * Mostrar los datos de los doctores
+	 */
+	public void mostrarDadesDoctors() {
+		for(Doctor d : listaDoctors) {
+			System.out.println( 
+						d.getNom() +
+						"\nDNI: " + d.getDni() +
+						"\nData naixement: " + d.getDataNaixement()+
+						"\nTelefon: " + d.getTlf() +
+						"\nEspecialidad: " + d.getEspecialitat().getNom() +
+						"\nCodi: " + d.getCodi()
+					);
+		}
+	}
+	
+	//especialitats
+	/**
+	 * Registrar especialidades en la lista de especialidades
+	 * @param e
+	 * @return
+	 */
+	public boolean registrarEspecialitat(Especialitat e) {
+		if(e == null)return false;
+		return listaEspecialitats.add(e);
+	}
+	
+	/**
+	 * Mostrar lista especialidades
+	 */
+	public void mostrarEspecialidades() {
+		for(Especialitat e : listaEspecialitats) {
+			System.out.println(
+						e.getNom() +
+						"\nDesc: " + e.getDesc()+
+						"\nEdat minima: " + e.getEdadMin()+
+						"\nEdat maxima: " + e.getEdadMax()
+						
+					);
+		}
+	}
+	
+	//cites
+	/**
+	 * Registrar citas en la lista 
+	 * @param c
+	 * @return
+	 */
+	public boolean registrarCita(Cita c) {
+		if(c == null)return false; 
+		return listaCites.add(c);
+	}
+	
+	/**
+	 * Buscar una cita en la lista
+	 * @param nom
+	 * @param data
+	 * @param hora
+	 * @return
+	 */
+	public Cita buscarCita(String nom, LocalDate data, LocalTime hora) {
+		for(Cita c : listaCites) {
+			if(c.getPacient().getNom().matches(nom)
+					&& c.getData().equals(data)
+					&& c.getHora().equals(hora))return c;
+		}
+		return null;
+	}
+	
+	/**
+	 * Cancelar citas
+	 * @param c
+	 * @return
+	 */
+	public boolean cancelarCita(Cita c) {
+		Cita cita = buscarCita(c.getPacient().getNom(),c.getData(),c.getHora());
+		if(!cita.equals(c))return false;
+		return c.cancelarCita();
+	}
+	
+	/**
+	 * Confirmar citas
+	 * @param c
+	 * @return
+	 */
+	public boolean confirmarCita(Cita c) {
+		Cita cita = buscarCita(c.getPacient().getNom(),c.getData(),c.getHora());
+		if(!cita.equals(c))return false;
+		return c.confirmarCita();
+	}
+	
+	public void mostrarCites() {
+		for (Cita c : listaCites) {
+			
+		}
+	}
 	
 }
