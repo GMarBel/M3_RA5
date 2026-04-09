@@ -2,6 +2,7 @@ package act3;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Cita implements Comparable<Cita>{
 	private Pacient pacient;
@@ -9,10 +10,13 @@ public class Cita implements Comparable<Cita>{
 	private LocalDate data;
 	private LocalTime hora;
 	private Estat estat;
-	
+
 	public Cita(Pacient pacient, Doctor doctor, LocalDate data, LocalTime hora) {
-		super();
-		if(compEdad(pacient,doctor)) {
+	    java.time.LocalDateTime citaTime = java.time.LocalDateTime.of(data, hora);
+	    if (citaTime.isBefore(java.time.LocalDateTime.now())) {
+	        throw new IllegalArgumentException("La data de la cita ha de ser posterior a l'actual");
+	    }
+	    if(compEdad(pacient,doctor)) {
 			this.pacient = pacient;
 			this.doctor = doctor;
 			this.data = data;
@@ -20,6 +24,7 @@ public class Cita implements Comparable<Cita>{
 			this.estat = estat.PENDENT;
 		}else throw new IllegalArgumentException("Error al crear la cita");
 	}
+	
 
 	public Pacient getPacient() {
 		return pacient;
@@ -89,28 +94,38 @@ public class Cita implements Comparable<Cita>{
 	 * @return
 	 */
 	public boolean compEdad(Persona persona, Doctor doctor) {
-		LocalDate dataNaix = persona.getDataNaixement();
-		int año = dataNaix.getYear();
-		int diaAño = dataNaix.getDayOfYear();
-		
-		LocalDate hoy = LocalDate.now();
-		
-		int edad = hoy.getYear() - año;
-		if(diaAño < hoy.getDayOfYear()) edad = edad - 1;
-		
-		Especialitat especialitat = doctor.getEspecialitat();
-		int edadMin = especialitat.getEdadMin();
-		int edadMax = especialitat.getEdadMax();
-		
-		if(edad>edadMin && edad<edadMax)return true;
-		return false;
+	    int edad = java.time.Period.between(persona.getDataNaixement(), LocalDate.now()).getYears();
+	    
+	    Especialitat e = doctor.getEspecialitat();
+	    return edad >= e.getEdadMin() && edad <= e.getEdadMax();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cita other = (Cita) obj;
+		return Objects.equals(data, other.data) && Objects.equals(doctor, other.doctor)
+				&& Objects.equals(hora, other.hora) && Objects.equals(pacient, other.pacient);
+	}
+
+	
 
 	@Override
 	public int compareTo(Cita c) {
 		int fecha = this.data.compareTo(c.data);
 		if(fecha != 0) return fecha;
 		return this.hora.compareTo(c.hora);
+	}
+
+	@Override
+	public String toString() {
+		return "Cita [pacient=" + pacient + ", doctor=" + doctor + ", data=" + data + ", hora=" + hora + ", estat="
+				+ estat + "]";
 	}
 	
 	

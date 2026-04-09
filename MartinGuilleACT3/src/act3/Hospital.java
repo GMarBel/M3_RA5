@@ -90,7 +90,7 @@ public class Hospital {
 	public Pacient buscarPacient(String dni) {
 		if(dni.isEmpty())return null;
 		for(Pacient p: listaPacients) {
-			if(p.getDni().matches(dni))return p;
+			if(p.getDni().equals(dni))return p;
 		}
 		return null;
 	}
@@ -200,9 +200,18 @@ public class Hospital {
 	 * @param hora
 	 * @return
 	 */
-	public Cita buscarCita(String nom, LocalDate data, LocalTime hora) {
+	public Cita buscarCitaPacient(String dni, LocalDate data, LocalTime hora) {
 		for(Cita c : listaCites) {
-			if(c.getPacient().getNom().matches(nom)
+			if(c.getPacient().getDni().equals(dni)
+					&& c.getData().equals(data)
+					&& c.getHora().equals(hora))return c;
+		}
+		return null;
+	}
+	
+	public Cita buscarCitaDoctor(String dni, LocalDate data, LocalTime hora) {
+		for(Cita c : listaCites) {
+			if(c.getDoctor().getDni().equals(dni)
 					&& c.getData().equals(data)
 					&& c.getHora().equals(hora))return c;
 		}
@@ -214,10 +223,10 @@ public class Hospital {
 	 * @param c
 	 * @return
 	 */
-	public boolean cancelarCita(Cita c) {
-		Cita cita = buscarCita(c.getPacient().getNom(),c.getData(),c.getHora());
-		if(!cita.equals(c))return false;
-		return c.cancelarCita();
+	public boolean cancelarCita(String dni,LocalDate data, LocalTime hora) {
+		Cita cita = buscarCitaPacient(dni,data,hora);
+		if(cita == null)return false;
+		return cita.cancelarCita();
 	}
 	
 	/**
@@ -225,16 +234,32 @@ public class Hospital {
 	 * @param c
 	 * @return
 	 */
-	public boolean confirmarCita(Cita c) {
-		Cita cita = buscarCita(c.getPacient().getNom(),c.getData(),c.getHora());
-		if(!cita.equals(c))return false;
-		return c.confirmarCita();
+	public boolean confirmarCita(String dni,LocalDate data, LocalTime hora) {
+		Cita cita = buscarCitaDoctor(dni,data,hora);
+		if(cita == null)return false;
+		return cita.confirmarCita();
 	}
 	
-	public void mostrarCites() {
-		for (Cita c : listaCites) {
-			
-		}
+	/**
+	 * Muestra por consola todas las citas programadas para una fecha específica.
+	 * @param fecha La fecha que queremos consultar.
+	 */
+	public void mostrarCitesPerDia(LocalDate fecha) {
+	    System.out.println("--- Cites per al dia: " + fecha + " ---");
+	    boolean hayCitas = false;
+	    
+	    for (Cita c : listaCites) {
+	        if (c.getData().equals(fecha)) {
+	            System.out.println(c.getHora() + " - Pacient: " + c.getPacient().getNom() + 
+	                               " | Doctor: " + c.getDoctor().getNom() + 
+	                               " [" + c.getEstat() + "]");
+	            hayCitas = true;
+	        }
+	    }
+	    
+	    if (!hayCitas) {
+	        System.out.println("No hi ha cites programades per a este dia.");
+	    }
 	}
 	
 }
