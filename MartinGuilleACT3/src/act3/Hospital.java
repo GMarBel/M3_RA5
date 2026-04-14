@@ -103,6 +103,11 @@ public class Hospital {
 	public boolean eliminarPacient(String dni) {
 		Pacient p = buscarPacient(dni);
 		if(p ==null)return false;
+		for(Cita c : listaCites) {
+			if(c.getPacient().equals(p)) {
+				c.cancelarCita();
+			}
+		}
 		return listaPacients.remove(p);
 	}
 	

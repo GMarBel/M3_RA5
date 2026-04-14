@@ -1,13 +1,22 @@
 package act3;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Pacient extends Persona{
 	private String codi, historial;
 	private static int numPacientes = 0;
 	
-	public Pacient(String nom, String dni, LocalDate dataNaixement, String tlf, String codi, String historial) throws InvalidCodiPacientException {
+	/**
+	 * Crear paciente
+	 * @param nom
+	 * @param dni
+	 * @param dataNaixement
+	 * @param tlf
+	 * @param codi
+	 * @param historial
+	 * @throws InvalidCodiPacientException
+	 */
+	public Pacient(String nom, String dni, String dataNaixement, String tlf, String codi, String historial) throws InvalidCodiPacientException {
 		super(nom, dni, dataNaixement, tlf);
 		if(valCodi(codi))this.codi = codi;
 		else throw new InvalidCodiPacientException();
@@ -15,9 +24,19 @@ public class Pacient extends Persona{
 		numPacientes++;
 	}
 
-	public Pacient(String nom, String dni, LocalDate dataNaixement, String tlf, String codi) {
+	/**
+	 * Crear paciente
+	 * @param nom
+	 * @param dni
+	 * @param dataNaixement
+	 * @param tlf
+	 * @param codi
+	 * @throws InvalidCodiPacientException 
+	 */
+	public Pacient(String nom, String dni, String dataNaixement, String tlf, String codi) throws InvalidCodiPacientException {
 		super(nom, dni, dataNaixement, tlf);
-		this.codi = codi;
+		if(valCodi(codi))this.codi = codi;
+		else throw new InvalidCodiPacientException();
 		numPacientes++;
 	}
 
@@ -45,7 +64,7 @@ public class Pacient extends Persona{
 	 */
 	public static boolean valCodi(String codi) {
 		String regex ="^[A-Z]{3}\\d{8}$";
-		return regex.matches(codi);
+		return codi.matches(regex);
 	}
 
 	@Override
@@ -70,10 +89,5 @@ public class Pacient extends Persona{
 		Pacient other = (Pacient) obj;
 		return Objects.equals(codi, other.codi) && Objects.equals(historial, other.historial);
 	}
-	
-	
-	
-	
-	
 	
 }

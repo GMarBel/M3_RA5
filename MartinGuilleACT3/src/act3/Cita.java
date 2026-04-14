@@ -83,7 +83,6 @@ public class Cita implements Comparable<Cita>{
 			this.estat = estat.CANCELADA;
 			return true;
 		}
-		
 		return false;
 	}
 	
