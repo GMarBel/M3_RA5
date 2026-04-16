@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="21.0.7" class="java.beans.XMLDecoder">
+ <object class="java.util.HashSet">
+  <void method="add">
+   <object class="act3.Pacient">
+    <void property="codi">
+     <string>MED12345678</string>
+    </void>
+    <void property="dni">
+     <string>88888888P</string>
+    </void>
+    <void property="nom">
+     <string>Anna</string>
+    </void>
+    <void property="tlf">
+     <string>600111222</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

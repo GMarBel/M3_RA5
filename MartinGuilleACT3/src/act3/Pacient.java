@@ -24,6 +24,14 @@ public class Pacient extends Persona{
 		numPacientes++;
 	}
 
+	
+	
+	public Pacient() {
+		
+	}
+
+
+
 	/**
 	 * Crear paciente
 	 * @param nom

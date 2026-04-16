@@ -16,6 +16,10 @@ public abstract class Persona{
 		this.tlf = tlf;
 	}
 
+	public Persona() {
+		
+	}
+	
 	public String getNom() {
 		return nom;
 	}

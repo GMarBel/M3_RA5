@@ -90,8 +90,11 @@ public class Main {
             
             // Guardar a XML
             GestorXML gXml = new GestorXML();
-            gXml.desaPacients("hospital.xml", hospital.getListaPacients());
-            System.out.println("Dades guardades correctament en XML.");
+            System.out.println(gXml.desaPacients("hospital.xml", hospital.getListaPacients()) ? "Dades guardades correctament en XML.": "Les dades no se han guardat correctament");
+
+            //Guardar a CSV
+            GestorCSV gCsv = new GestorCSV();
+            System.out.println(gCsv.desaPacients("hospital.csv", hospital.getListaPacients()) ? "Dades guardades correctament en CSV.": "Les dades no se han guardat correctament");
 
         } catch (Exception e) {
             System.out.println("ERROR INESPERAT: " + e.getMessage());
